@@ -1,13 +1,13 @@
-package com.example.tdspring;
+package com.example.banque;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class TdSpringApplicationTests {
+class BanqueApplicationTests {
 
-    @Test
-    void contextLoads() {
-    }
+	@Test
+	void contextLoads() {
+	}
 
 }
