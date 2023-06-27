@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>Gestion bancaire</title>
+
+    <link crossorigin="anonymous"
+
+          href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+
+          rel="stylesheet">
+
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+    <script type="text/javascript">
+
+        $(function () {
+
+            $("#numeroCompteAutocomplete").autocomplete({
+
+                source: "/operation/listeNumeroCompteAutocomplete",
+
+                minLength: 2
+
+            });
+
+        });
+
+    </script>
+
+</head>
+
+<body>
+
+<div th:insert="~{Common/menu_bar :: menubar}"></div>
+
+<div class="container container-md">
+
+    <div class="row">
+
+        <h1 class="text-center">Gestion des opérations</h1>
+
+    </div>
+
+    <div class="row">
+
+        <h1>du compte </h1>
+
+        <h1 class="text-center" th:if="${produitBancaire!=null && produitBancaire.id != null}"
+            th:text="${produitBancaire.id}"></h1>
+    </div>
+
+    <div class="row border bg-light">
+        <!--<form th:action="@{/operation/loadOperation}" method="POST">
+            <div class="form-group m-2">
+                <label for="select_produitBancaire">Choisir un numéro de compte</label>
+
+                <select th:value="${produitBancaireId}" name="produitBancaireId" id="select_produitBancaire"
+                        class="form-control" required>
+
+                   <option value=""> - Choisissez un numéro de compte -</option>
+                    <th:block th:each="pb:${listeProduitBancaire} ">
+                        <option th:text="${pb.id}" th:value="${pb.id}"/>
+                    </th:block>
+                </select>
+            </div>
+        </form>-->
+
+        <form th:action="@{/operation/loadOperationAutocomplete}" method="POST">
+            <div class="form-group m-2">
+                <label>Numéro de compte</label>
+                <div class="input-group">
+                    <input
+                            type="text"
+                            class="form-control"
+                            id="numeroCompteAutocomplete"
+                            name="numeroCompteAutocomplete"
+                            placeholder="Saisir le numéro du compte"
+                    />
+                </div>
+                <div class="form-group m-2">
+                    <button type="submit" class="btn btn-primary btn-sm mb-3">Charger les opérations du compte
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div th:if="${produitBancaire!=null && produitBancaire.id!=null}">
+        <div class="row mt-3">
+            <a th:href="@{/operation/edit}" class="btn btn-primary btn-sm mb-3">Ajouter une opération</a>
+        </div>
+        <div class="row">
+            <table class="table table-striped table-bordered">
+                <thead class="thead-dark">
+                <tr>
+                    <th>Date opération</th>
+                    <th>Libellé opération</th>
+                    <th>Montant opération</th>
+                    <th>Type opération</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="op : ${listeOperation}">
+                    <td th:text="${#dates.format(op.dateOperation, 'dd/MM/yyyy')}"></td>
+                    <td th:text="${op.getLibelle()}"></td>
+                    <td th:text="${op.getMontant()}"></td>
+                    <td th:text="${op.getType()}"></td>
+                    <td>
+                        <a th:href="@{/operation/details/{id}(id=${op.id})}" class="btn btn-primary">Détails</a>
+                        <a th:href="@{/operation/edit/{id}(id=${op.id})}" class="btn btn-primary">Modifier</a>
+                        <a th:href="@{/operation/delete/{id}(id=${op.id})}" class="btn btn-danger">Supprimer</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
