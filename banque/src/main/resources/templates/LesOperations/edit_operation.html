@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <title>Gestion bancaire</title>
+
+  <link crossorigin="anonymous"
+
+        href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+
+        rel="stylesheet">
+
+</head>
+
+<body>
+
+<div th:insert="~{Common/menu_bar :: menubar}"></div>
+
+<div class="container" >
+
+  <div class="row">
+
+    <div class=" col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
+
+      <!-- Petit exemple de conditionnelle pour l'affichage du titre de la page-->
+
+      <h1 class="text-center" th:if="${operation.id != null}">Modification d'une opération du compte</h1>
+
+      <h1 class="text-center" th:unless="${operation.id != null}">Création d'une opération du compte</h1>
+
+      <h1 class = "text-center" th:text="${operation.produitBancaire.id}"></h1>
+
+      <div class="card-body">
+
+        <!-- Le formulaire poste tous les champs input et le moteur de template modifie et renvoie
+
+        l'objet conditionsGenerales
+
+        Cet objet a été construit et rempli dans ProduitBancaireController -->
+
+        <form th:action="@{/operation/save/}" th:object="${operation}" method="POST">
+
+          <div class="form-group">
+
+            <label>Date de l'opération</label>
+
+            <input
+
+                    type="Date"
+
+                    name="dateOperation"
+
+                    th:field="*{dateOperation}"
+
+                    class="form-control"
+
+                    placeholder="Saisir la date de l'opération"
+
+            />
+
+          </div>
+
+          <div class="form-group">
+
+            <label>Intitulé de l'opération</label>
+
+            <input
+
+                    type="text"
+
+                    name="intituleOperation"
+
+                    th:field="*{libelle}"
+
+                    class="form-control"
+
+                    placeholder="Saisir l'intitulé de l'opération"
+
+            />
+
+          </div>
+
+          <div class="form-group">
+
+            <label>Montant de l'opération</label>
+
+            <input
+
+                    type="number"
+
+                    name="montant"
+
+                    th:field="*{montant}"
+
+                    class="form-control"
+
+            />
+
+          </div>
+
+          <div class="form-group">
+
+            <label>Type d'opération</label>
+
+            <input
+
+                    type="text"
+
+                    name="typeOperation"
+
+                    th:field="*{type}"
+
+                    class="form-control"
+
+            />
+
+          </div>
+
+          <div class="box-footer">
+
+            <input type="hidden" th:field="*{id}" id="id">
+
+            <button type="submit" class="btn btn-primary">
+
+              Enregistrer les modifications
+
+            </button>
+
+          </div>
+
+        </form>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+</body>
+
+</html>

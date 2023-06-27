@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+
+<div th:fragment="menubar">
+
+    <nav class="navbar navbar-expand-md bg-dark navbar-dark">
+
+        <!-- Brand -->
+
+        <a class="navbar-brand" href="#">Ma banque</a>
+
+        <!-- Toggler/collapsibe Button -->
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+
+            <span class="navbar-toggler-icon"></span>
+
+        </button>
+
+        <!-- Navbar links -->
+
+        <div class="collapse navbar-collapse" id="collapsibleNavbar">
+
+            <ul class="navbar-nav">
+
+                <li class="nav-item">
+
+                    <a class="nav-link" th:href="@{/clients}">Les clients bancaires</a>
+
+                </li>
+
+                <li class="nav-item">
+
+                    <a class="nav-link" th:href="@{/produits}">Les produits</a>
+
+                </li>
+
+                <li class="nav-item">
+
+                    <a class="nav-link" th:href="@{/cartes}">Les cartes</a>
+
+                </li>
+
+                <li class="nav-item">
+
+                    <a class="nav-link" th:href="@{/personnesPhysiques}">Les personnes physiques</a>
+
+                </li>
+
+                <li class="nav-item">
+
+                    <a class="nav-link" th:href="@{/personnesMorales}">Les personnes morales</a>
+
+                </li>
+
+                <li class="nav-item">
+
+                    <a class="nav-link" th:href="@{/conditionsGenerales}">Les conditions générales</a>
+
+                </li>
+
+            </ul>
+
+        </div>
+
+    </nav>
+
+</div>
+
+</body>
+
+</html>
